@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://opidvysqy04m"]
+
+[ext_resource type="PackedScene" uid="uid://m6hthegltb4i" path="res://girl_animated_2.tscn" id="1_juxde"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f3prf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dp14h"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["Player"]]
+
+[node name="girl_animated_2" parent="." instance=ExtResource("1_juxde")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.154176, -0.0271218)
+shape = SubResource("BoxShape3D_f3prf")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.454693, -0.027)
+shape = SubResource("BoxShape3D_dp14h")

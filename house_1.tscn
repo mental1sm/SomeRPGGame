@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkjccxxdpxm7i"]
+
+[ext_resource type="PackedScene" uid="uid://bfnfqv52l03du" path="res://assets/buildings/house_1.glb" id="1_otemh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1iqye"]
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="house_1" parent="." instance=ExtResource("1_otemh")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.990589, 0)
+shape = SubResource("BoxShape3D_1iqye")

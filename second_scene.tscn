@@ -1,0 +1,117 @@
+[gd_scene load_steps=8 format=3 uid="uid://y1wgg1v1r0ka"]
+
+[ext_resource type="PackedScene" uid="uid://opidvysqy04m" path="res://character_body_3d.tscn" id="1_8sxbs"]
+[ext_resource type="Script" path="res://Combat/Godot/PlayerBattleController.cs" id="2_xiesp"]
+[ext_resource type="Script" path="res://Combat/Godot/HealthBarController.cs" id="4_6igxi"]
+[ext_resource type="Script" path="res://SwitchLocationButton.cs" id="4_ev3qq"]
+[ext_resource type="Script" path="res://Combat/Godot/EnergyBarController.cs" id="4_r0i1s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ygmwq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r66rn"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(3.61028, 0, 0, 0, 0.16774, 0, 0, 0, 3.71692, 0, -0.278562, 0)
+mesh = SubResource("BoxMesh_ygmwq")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -2.19792, 0)
+shape = SubResource("BoxShape3D_r66rn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.511443, 0.859317, 0, -0.859317, -0.511443, 0, 12, 0)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_8sxbs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0171096, -0.102749, -1.43694)
+script = ExtResource("2_xiesp")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 456.0
+offset_top = 19.0
+offset_right = 663.0
+offset_bottom = 60.0
+text = "Сменить сцену"
+script = ExtResource("4_ev3qq")
+Path = "node_3d"
+LoadPreviousPosition = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.00257285, 0.368521, -0.929616, -0.00648988, 0.929593, 0.36853, 0.999976, 0.00698127, -4.19333e-08, -1.55244, 1.71226, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.863
+anchor_right = 0.5
+anchor_bottom = 0.863
+offset_left = -574.0
+offset_top = -87.224
+offset_right = 575.0
+offset_bottom = 87.776
+
+[node name="EnergyLabel" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.245
+anchor_right = -2.245
+offset_left = 2918.51
+offset_top = 115.0
+offset_right = 3116.51
+offset_bottom = 155.0
+color = Color(1, 0.662745, 0, 1)
+script = ExtResource("4_r0i1s")
+
+[node name="EnergyLabel" type="Label" parent="Control/EnergyLabel"]
+z_index = 2
+layout_mode = 0
+offset_left = 9.44165
+offset_top = 7.86108
+offset_right = 37.4417
+offset_bottom = 30.8611
+text = "ENERGY"
+
+[node name="EnergyValueLabel" type="Label" parent="Control/EnergyLabel"]
+z_index = 4
+layout_mode = 0
+offset_left = 110.0
+offset_top = 8.0
+offset_right = 161.0
+offset_bottom = 31.0
+text = "? / ?"
+horizontal_alignment = 1
+
+[node name="HealthBar" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.245
+anchor_right = -2.245
+offset_left = 2600.51
+offset_top = 114.0
+offset_right = 2798.51
+offset_bottom = 154.0
+color = Color(0.733333, 0.109804, 0, 1)
+script = ExtResource("4_6igxi")
+
+[node name="HpLabel" type="Label" parent="Control/HealthBar"]
+z_index = 2
+layout_mode = 0
+offset_left = 22.0
+offset_top = 9.0
+offset_right = 50.0
+offset_bottom = 32.0
+text = "HP"
+
+[node name="HpValueLabel" type="Label" parent="Control/HealthBar"]
+z_index = 4
+layout_mode = 0
+offset_left = 96.0
+offset_top = 9.0
+offset_right = 147.0
+offset_bottom = 32.0
+text = "? / ?"
+horizontal_alignment = 1

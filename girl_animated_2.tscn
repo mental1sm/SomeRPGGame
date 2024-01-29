@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://m6hthegltb4i"]
+
+[ext_resource type="PackedScene" uid="uid://yfepklnovxh8" path="res://assets/character/girl_animated_2.glb" id="1_skns0"]
+
+[node name="girl_animated_2" instance=ExtResource("1_skns0")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/5/rotation = Quaternion(1.24269e-07, 4.66115e-08, -0.441481, 0.897271)
+bones/8/rotation = Quaternion(1.57528e-07, -4.68673e-08, 0.412262, 0.911065)
+bones/11/rotation = Quaternion(-0.727494, 0.0297075, 0.0307289, 0.684782)
+bones/12/rotation = Quaternion(0.0234672, 0.000368006, -0.029281, 0.999296)
+bones/14/rotation = Quaternion(-0.719604, -0.00852404, 0.0123932, 0.694221)
+bones/15/rotation = Quaternion(0.0141804, -6.51111e-05, -0.0172641, 0.99975)
