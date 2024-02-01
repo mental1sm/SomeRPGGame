@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerVars="*res://PlayerVars.cs"
-SharedBattleSignal="*res://Combat/Godot/SharedBattleSignal.cs"
+SharedBattleSignal="*res://Combat/Godot/Util/SharedBattleSignal.cs"
 
 [dotnet]
 

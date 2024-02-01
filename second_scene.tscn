@@ -1,16 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://y1wgg1v1r0ka"]
+[gd_scene load_steps=11 format=3 uid="uid://y1wgg1v1r0ka"]
 
 [ext_resource type="PackedScene" uid="uid://opidvysqy04m" path="res://character_body_3d.tscn" id="1_8sxbs"]
-[ext_resource type="Script" path="res://Combat/Godot/PlayerBattleController.cs" id="2_xiesp"]
-[ext_resource type="Script" path="res://Combat/Godot/HealthBarController.cs" id="4_6igxi"]
+[ext_resource type="Script" path="res://DatabaseContext.cs" id="1_ugklu"]
+[ext_resource type="Script" path="res://Combat/Godot/Player/Logic/PlayerBattleController.cs" id="3_r4hut"]
 [ext_resource type="Script" path="res://SwitchLocationButton.cs" id="4_ev3qq"]
-[ext_resource type="Script" path="res://Combat/Godot/EnergyBarController.cs" id="4_r0i1s"]
+[ext_resource type="Script" path="res://Combat/Godot/Player/UI/EnergyBarController.cs" id="5_7cxd3"]
+[ext_resource type="Script" path="res://Combat/Godot/Player/UI/HealthBarController.cs" id="6_uwmq1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ygmwq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r66rn"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_yhety"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5w5x7"]
+height = 1.6
+
 [node name="Node3D" type="Node3D"]
+
+[node name="DatabaseContext" type="Node" parent="."]
+script = ExtResource("1_ugklu")
+
+[node name="BattleManager" type="Node" parent="."]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -28,20 +39,32 @@ transform = Transform3D(1, 0, 0, 0, -0.511443, 0.859317, 0, -0.859317, -0.511443
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_8sxbs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0171096, -0.102749, -1.43694)
-script = ExtResource("2_xiesp")
+script = ExtResource("3_r4hut")
+EntityId = "player"
 
 [node name="Button" type="Button" parent="."]
-offset_left = 456.0
-offset_top = 19.0
-offset_right = 663.0
-offset_bottom = 60.0
+offset_left = 27.0
+offset_top = 21.0
+offset_right = 234.0
+offset_bottom = 62.0
 text = "Сменить сцену"
 script = ExtResource("4_ev3qq")
 Path = "node_3d"
 LoadPreviousPosition = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.00257285, 0.368521, -0.929616, -0.00648988, 0.929593, 0.36853, 0.999976, 0.00698127, -4.19333e-08, -1.55244, 1.71226, 0)
+transform = Transform3D(-0.00344711, 0.493747, -0.869599, -0.00607087, 0.869577, 0.493759, 0.999976, 0.00698126, -4.67235e-08, -1.55244, 1.71226, 0)
+
+[node name="CharacterBody3D2" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.549308, 0, 0, 0, 1, 0, 0.391179, -0.157383)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D2"]
+transform = Transform3D(0.506554, 0, 0, 0, 0.507397, 0, 0, 0, 0.557841, 0, 0, 1.48305)
+mesh = SubResource("CylinderMesh_yhety")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D2"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.0311729, 1.48305)
+shape = SubResource("CylinderShape3D_5w5x7")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -59,15 +82,14 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = -2.245
 anchor_right = -2.245
-offset_left = 2918.51
-offset_top = 115.0
-offset_right = 3116.51
-offset_bottom = 155.0
-color = Color(1, 0.662745, 0, 1)
-script = ExtResource("4_r0i1s")
+offset_left = 2916.5
+offset_top = 36.0
+offset_right = 3114.5
+offset_bottom = 76.0
+color = Color(1, 0.662745, 0, 0.745098)
+script = ExtResource("5_7cxd3")
 
 [node name="EnergyLabel" type="Label" parent="Control/EnergyLabel"]
-z_index = 2
 layout_mode = 0
 offset_left = 9.44165
 offset_top = 7.86108
@@ -76,7 +98,6 @@ offset_bottom = 30.8611
 text = "ENERGY"
 
 [node name="EnergyValueLabel" type="Label" parent="Control/EnergyLabel"]
-z_index = 4
 layout_mode = 0
 offset_left = 110.0
 offset_top = 8.0
@@ -90,15 +111,14 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = -2.245
 anchor_right = -2.245
-offset_left = 2600.51
-offset_top = 114.0
-offset_right = 2798.51
-offset_bottom = 154.0
-color = Color(0.733333, 0.109804, 0, 1)
-script = ExtResource("4_6igxi")
+offset_left = 2621.5
+offset_top = 36.0
+offset_right = 2819.5
+offset_bottom = 76.0
+color = Color(0.733333, 0.109804, 0, 0.745098)
+script = ExtResource("6_uwmq1")
 
 [node name="HpLabel" type="Label" parent="Control/HealthBar"]
-z_index = 2
 layout_mode = 0
 offset_left = 22.0
 offset_top = 9.0
@@ -107,7 +127,6 @@ offset_bottom = 32.0
 text = "HP"
 
 [node name="HpValueLabel" type="Label" parent="Control/HealthBar"]
-z_index = 4
 layout_mode = 0
 offset_left = 96.0
 offset_top = 9.0
@@ -115,3 +134,114 @@ offset_right = 147.0
 offset_bottom = 32.0
 text = "? / ?"
 horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 84.0
+offset_right = 536.0
+offset_bottom = 162.0
+color = Color(0, 0, 0, 0.227451)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.998
+anchor_bottom = 0.987
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+
+[node name="Slot_1" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.372549)
+
+[node name="Slot_2" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.372549)
+
+[node name="Slot_3" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.372549)
+
+[node name="Slot_4" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.372549)
+
+[node name="Slot_5" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.372549)
+
+[node name="Slot_6" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.372549)
+
+[node name="Slot_7" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.372549)
+
+[node name="Slot_8" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 1, 1, 0.372549)
+
+[node name="EnemyHealthBar" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.245
+anchor_right = -2.245
+offset_left = 3507.5
+offset_top = -315.0
+offset_right = 3705.5
+offset_bottom = -275.0
+color = Color(0.733333, 0.109804, 0, 0.745098)
+
+[node name="HpLabel" type="Label" parent="Control/EnemyHealthBar"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 9.0
+offset_right = 50.0
+offset_bottom = 32.0
+text = "HP"
+
+[node name="HpValueLabel" type="Label" parent="Control/EnemyHealthBar"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 9.0
+offset_right = 147.0
+offset_bottom = 32.0
+text = "? / ?"
+horizontal_alignment = 1
+
+[node name="TurnPanel" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 375.0
+offset_top = -456.0
+offset_right = 719.0
+offset_bottom = -392.0
+color = Color(0, 0, 0, 0.486275)
+
+[node name="Label" type="Label" parent="Control/TurnPanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 19.0
+offset_right = 146.0
+offset_bottom = 52.0
+text = "Текущий ход: "
+
+[node name="CurrentTurn" type="Label" parent="Control/TurnPanel"]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 19.0
+offset_right = 322.0
+offset_bottom = 42.0
+text = "some"

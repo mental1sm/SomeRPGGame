@@ -1,11 +1,14 @@
 ﻿using System;
+using Desert.Combat.Domain.Skillset;
+using Desert.Combat.Domain.Util;
 
 namespace Desert.Combat.Domain;
 
-public class Mob : Entity
+public class Mob : Entity.Entity
 {
     public Mob(
-        int id,
+        int gameId,
+        string id,
         string name = "Unnamed",
         float maxHealth = 100,
         float maxEnergy = 100,
@@ -14,6 +17,7 @@ public class Mob : Entity
         EmitSignalStrategyDefinitionProvider.EmitSignalStrategy emitSignalStrategy = null
     )
         : base(
+            gameId: gameId,
             id: id,
             name: name,
             maxHealth: maxHealth,

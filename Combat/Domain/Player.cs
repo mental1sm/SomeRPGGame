@@ -1,12 +1,15 @@
 ﻿using System;
+using Desert.Combat.Domain.Skillset;
+using Desert.Combat.Domain.Util;
 
 namespace Desert.Combat.Domain;
 
-public class Player : Entity
+public class Player : Entity.Entity
 {
 
     public Player(
-        int id,
+        int gameId,
+        string id,
         string name = "Unnamed",
         float maxHealth = 100,
         float maxEnergy = 100,
@@ -15,6 +18,7 @@ public class Player : Entity
         EmitSignalStrategyDefinitionProvider.EmitSignalStrategy emitSignalStrategy = null
     )
         : base(
+            gameId: gameId,
             id: id,
             name: name,
             maxHealth: maxHealth,
@@ -24,7 +28,7 @@ public class Player : Entity
             emitSignalStrategy: emitSignalStrategy
         )
     {
-        Console.WriteLine($"Игрок с ID {id} был инициализирован!");
+        Console.WriteLine($"Моб с ID {id} был инициализирован!");
     }
     
 }
