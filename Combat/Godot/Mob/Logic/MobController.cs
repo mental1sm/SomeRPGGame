@@ -1,31 +1,67 @@
 ﻿using System;
 using System.Linq;
+using Desert.Combat.Domain.Entity;
 using Desert.Combat.Godot.Util;
 using Desert.Combat.Infrastructure;
+using Desert.Combat.Repository;
 using Godot;
 
 namespace Desert.Combat.Godot.Mob.Logic;
 
+/// <summary>
+/// Компонент, отвечающий за характеристики и поведение моба
+/// </summary>
 public partial class MobController : CharacterBody3D
 {
-    public Domain.Mob Entity { get; set; }
-    private Util.SharedBattleSignal _sharedBattleSignal;
-    private Util.BattleManager _battleManager;
+    private SharedBattleSignal _sharedBattleSignal;
+    
+    /// <summary>
+    /// Все характеристики сущности будут импортированы по этому ID из БД
+    /// </summary>
+    [Export]
+    public string EntityId { get; set; }
+    public Entity Entity { get; set; }
+    public EntityBehaviorController EntityBehaviorController { get; set; }
+
+    private Timer _delayTimer;
 
     public override void _Ready()
     {
-        _battleManager = (Util.BattleManager)GetTree().Root.GetChildren().Last().GetNode("BattleManager");
         Console.WriteLine("Создаем моба...");
-        _sharedBattleSignal = GetNode<Util.SharedBattleSignal>("/root/SharedBattleSignal");
-        Entity = TestingEntity.getTestingMobPrefab(_sharedBattleSignal);
-        //_battleManager.RegEnemyMob(Entity);
+        _sharedBattleSignal = GetNode<SharedBattleSignal>("/root/SharedBattleSignal");
+        _sharedBattleSignal.NewTurnSignal += OnNewTurn;
+        LoadEntity();
+        BattleManager battleManager = (BattleManager)GetTree().Root.GetChildren().Last().GetNode("BattleManager");
+        EntityBehaviorController = new EntityBehaviorController(battleManager, Entity);
+        EntityBehaviorController.RegisterEntity();
+        EntityBehaviorController.NotifyReady();
+    }
+    
+    private void LoadEntity()
+    {
+        GameContext context = Infrastructure.DatabaseManager.GetInstance().GetContext();
+        Entity = new EntityRepository(context).GetById(EntityId);
+        Entity.EmitSignalStrategy = _sharedBattleSignal.EmitBattleSignal;
+        Entity.GameId = 1;
     }
 
-    public void Load()
+    private void OnNewTurn(int currentTurnEntityId)
     {
-        using (GameContext context = new GameContext())
+        if (currentTurnEntityId == Entity.GameId)
         {
-			
+            _delayTimer = new Timer();
+            _delayTimer.WaitTime = 1.5F;
+            _delayTimer.OneShot = true;
+            _delayTimer.Connect("timeout", new Callable(this, "MakeTurn"));
+            _delayTimer.Autostart = true;
+            AddChild(_delayTimer);
         }
     }
+
+    private void MakeTurn()
+    {
+        RemoveChild(_delayTimer);
+        EntityBehaviorController.UseSkill(0, Entity.SkillSet.Skills.First());
+    }
+    
 }

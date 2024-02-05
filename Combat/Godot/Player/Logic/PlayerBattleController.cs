@@ -17,6 +17,7 @@ public partial class PlayerBattleController : CharacterBody3D
 	
 	private AnimationPlayer _animationPlayer;
 	private SharedBattleSignal _sharedBattleSignal;
+	public EntityBehaviorController EntityBehaviorController { get; set; }
 	
 	[Export]
 	public string EntityId { get; set; }
@@ -24,20 +25,21 @@ public partial class PlayerBattleController : CharacterBody3D
 	
 	public override void _Ready()
 	{
-		this._animationPlayer = (AnimationPlayer) GetNode("girl_animated_2/AnimationPlayer");
-		this._animationPlayer.Play("Idle");
+		_animationPlayer = (AnimationPlayer) GetNode("girl_animated_2/AnimationPlayer");
+		_animationPlayer.Play("Idle");
 		_sharedBattleSignal = GetNode<SharedBattleSignal>("/root/SharedBattleSignal");
 		LoadEntity();
+		BattleManager battleManager = (BattleManager)GetTree().Root.GetChildren().Last().GetNode("BattleManager");
+		EntityBehaviorController = new EntityBehaviorController(battleManager, PlayerEntity);
+		EntityBehaviorController.RegisterEntity();
+		EntityBehaviorController.NotifyReady();
 	}
 
 	private void LoadEntity()
 	{
-		Console.WriteLine("Loading Context...");
 		GameContext context = Infrastructure.DatabaseManager.GetInstance().GetContext();
-		Console.WriteLine("Loading Repo...");
 		PlayerEntity = new EntityRepository(context).GetById(EntityId);
-		Console.WriteLine("Loaded!");
-		Console.WriteLine(PlayerEntity.Name);
+		PlayerEntity.EmitSignalStrategy = _sharedBattleSignal.EmitBattleSignal;
 	}
 
 	public override void _PhysicsProcess(double delta)

@@ -1,9 +1,11 @@
-using System;
 using System.Linq;
 using Godot;
 
 namespace Desert.Combat.Godot.Mob.UI;
 
+/// <summary>
+/// Отрисовывает шкалу ХП моба и обновляет ее при получении урона
+/// </summary>
 public partial class MobHpBar : ColorRect
 {
 	private Logic.MobController _mobController;
@@ -20,7 +22,6 @@ public partial class MobHpBar : ColorRect
 
 	private void OnDamageTaken(int emitterId)
 	{
-		Console.WriteLine($"Received signal from entity with id {emitterId}");
 		_hpLabel.Text = $"{_mobController.Entity.CurrentHealth} / {_mobController.Entity.MaxHealth}";
 	}
 }

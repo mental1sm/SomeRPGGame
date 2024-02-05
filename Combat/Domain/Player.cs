@@ -4,7 +4,7 @@ using Desert.Combat.Domain.Util;
 
 namespace Desert.Combat.Domain;
 
-public class Player : Entity.Entity
+public sealed class Player : Entity.Entity
 {
 
     public Player(

@@ -1,11 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://y1wgg1v1r0ka"]
+[gd_scene load_steps=16 format=3 uid="uid://y1wgg1v1r0ka"]
 
 [ext_resource type="PackedScene" uid="uid://opidvysqy04m" path="res://character_body_3d.tscn" id="1_8sxbs"]
 [ext_resource type="Script" path="res://DatabaseContext.cs" id="1_ugklu"]
+[ext_resource type="Script" path="res://Combat/Godot/Util/BattleManager.cs" id="2_wa6i7"]
 [ext_resource type="Script" path="res://Combat/Godot/Player/Logic/PlayerBattleController.cs" id="3_r4hut"]
 [ext_resource type="Script" path="res://SwitchLocationButton.cs" id="4_ev3qq"]
 [ext_resource type="Script" path="res://Combat/Godot/Player/UI/EnergyBarController.cs" id="5_7cxd3"]
+[ext_resource type="Script" path="res://Combat/Godot/Mob/Logic/MobController.cs" id="5_iqnem"]
 [ext_resource type="Script" path="res://Combat/Godot/Player/UI/HealthBarController.cs" id="6_uwmq1"]
+[ext_resource type="Script" path="res://Combat/Godot/Mob/UI/MobHpBar.cs" id="8_57u1s"]
+[ext_resource type="Script" path="res://Combat/Godot/Player/UI/SkillContainer.cs" id="9_cdlrd"]
+[ext_resource type="Script" path="res://Combat/Godot/Player/UI/TurnPanel.cs" id="11_5255d"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ygmwq"]
 
@@ -22,6 +27,7 @@ height = 1.6
 script = ExtResource("1_ugklu")
 
 [node name="BattleManager" type="Node" parent="."]
+script = ExtResource("2_wa6i7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -57,6 +63,8 @@ transform = Transform3D(-0.00344711, 0.493747, -0.869599, -0.00607087, 0.869577,
 
 [node name="CharacterBody3D2" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.549308, 0, 0, 0, 1, 0, 0.391179, -0.157383)
+script = ExtResource("5_iqnem")
+EntityId = "test_mob"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D2"]
 transform = Transform3D(0.506554, 0, 0, 0, 0.507397, 0, 0, 0, 0.557841, 0, 0, 1.48305)
@@ -135,7 +143,7 @@ offset_bottom = 32.0
 text = "? / ?"
 horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="SkillBar" type="ColorRect" parent="Control"]
 layout_mode = 0
 offset_left = 42.0
 offset_top = 84.0
@@ -143,7 +151,7 @@ offset_right = 536.0
 offset_bottom = 162.0
 color = Color(0, 0, 0, 0.227451)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/ColorRect"]
+[node name="SkillContainer" type="HBoxContainer" parent="Control/SkillBar"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.998
@@ -152,44 +160,45 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = -10.0
+script = ExtResource("9_cdlrd")
 
-[node name="Slot_1" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+[node name="Slot_1" type="ColorRect" parent="Control/SkillBar/SkillContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0.372549)
 
-[node name="Slot_2" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+[node name="Slot_2" type="ColorRect" parent="Control/SkillBar/SkillContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0.372549)
 
-[node name="Slot_3" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+[node name="Slot_3" type="ColorRect" parent="Control/SkillBar/SkillContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0.372549)
 
-[node name="Slot_4" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+[node name="Slot_4" type="ColorRect" parent="Control/SkillBar/SkillContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0.372549)
 
-[node name="Slot_5" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+[node name="Slot_5" type="ColorRect" parent="Control/SkillBar/SkillContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0.372549)
 
-[node name="Slot_6" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+[node name="Slot_6" type="ColorRect" parent="Control/SkillBar/SkillContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0.372549)
 
-[node name="Slot_7" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+[node name="Slot_7" type="ColorRect" parent="Control/SkillBar/SkillContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0.372549)
 
-[node name="Slot_8" type="ColorRect" parent="Control/ColorRect/HBoxContainer"]
+[node name="Slot_8" type="ColorRect" parent="Control/SkillBar/SkillContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 1, 1, 0.372549)
@@ -204,6 +213,7 @@ offset_top = -315.0
 offset_right = 3705.5
 offset_bottom = -275.0
 color = Color(0.733333, 0.109804, 0, 0.745098)
+script = ExtResource("8_57u1s")
 
 [node name="HpLabel" type="Label" parent="Control/EnemyHealthBar"]
 layout_mode = 0
@@ -229,6 +239,7 @@ offset_top = -456.0
 offset_right = 719.0
 offset_bottom = -392.0
 color = Color(0, 0, 0, 0.486275)
+script = ExtResource("11_5255d")
 
 [node name="Label" type="Label" parent="Control/TurnPanel"]
 layout_mode = 0

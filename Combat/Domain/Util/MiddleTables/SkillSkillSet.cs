@@ -1,12 +1,14 @@
-﻿using Desert.Combat.Domain.Skill;
-using Desert.Combat.Domain.Skillset;
+﻿using Desert.Combat.Domain.Skillset;
 
-namespace Desert.Domain.Util.MiddleTables;
+namespace Desert.Combat.Domain.Util.MiddleTables;
 
+/// <summary>
+/// Промежуточная таблица между Сущностями и Скиллами для создания связи многие-ко-многим
+/// </summary>
 public class SkillSkillSet
 {
     public int Id { get; set; }
     
     public SkillSet SkillSet { get; set; }
-    public Skill Skill { get; set; }
+    public Skill.Skill Skill { get; set; }
 }

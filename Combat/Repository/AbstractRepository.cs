@@ -4,6 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Desert.Combat.Repository;
 
+/// <summary>
+/// Абстрактный репозиторий, применимый для любой сущности,
+/// однако, почти каждый метод надо будет переписать под свою сущность!
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public abstract class AbstractRepository<T> : IRepository<T> where T : class
 {
     protected readonly GameContext Context;

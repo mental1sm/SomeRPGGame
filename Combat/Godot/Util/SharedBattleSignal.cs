@@ -1,5 +1,4 @@
 ﻿using System;
-using Desert.Combat.Domain;
 using Desert.Combat.Domain.Util;
 using Godot;
 
@@ -33,26 +32,37 @@ public partial class SharedBattleSignal : Node
     [Signal]
     public delegate void DrainedEnergySignalEventHandler(int emitterId);
 
-    public void EmitBattleSignal(CombatSignal signalType, int emitterId)
+    [Signal]
+    public delegate void NewTurnSignalEventHandler(int currentTurnEntityId);
+
+    public void EmitBattleSignal(CombatSignal signalType, int arg)
     {
         switch (signalType)
         {
             case CombatSignal.EndTurn:
             {
-                Console.WriteLine($"Emitting signal of turn end with id {emitterId}");
-                EmitSignal(SignalName.EndTurnSignal, emitterId);
+                Console.WriteLine($"Emitting signal of turn end with id {arg}");
+                EmitSignal(SignalName.EndTurnSignal, arg);
                 break;
             }
             case CombatSignal.DrainedEnergy:
             {
-                EmitSignal(SignalName.DrainedEnergySignal, emitterId);
+                EmitSignal(SignalName.DrainedEnergySignal, arg);
                 break;
             }
             case CombatSignal.TakenDamage:
             {
-                EmitSignal(SignalName.TakeDamageSignal, emitterId);
+                EmitSignal(SignalName.TakeDamageSignal, arg);
                 break;
             }
+
+            case CombatSignal.NewTurn:
+            {
+                EmitSignal(SignalName.NewTurnSignal, arg);
+                break;
+            }
+           
         }
     }
+    
 }

@@ -3,10 +3,13 @@ using System.Linq;
 using Desert.Combat.Domain;
 using Desert.Combat.Domain.Skill;
 using Godot;
-using SkillButton = Desert.Combat.Godot.Util.SkillButton;
+using SkillButton = Desert.Combat.Godot.Player.UI.SkillButton;
 
 namespace Desert.Combat.Godot.Player.UI;
 
+/// <summary>
+/// Контейнер с динамически подгружаемыми скиллами игрока
+/// </summary>
 public partial class SkillContainer : HBoxContainer
 {
 	private Logic.PlayerBattleController _playerBattleController;

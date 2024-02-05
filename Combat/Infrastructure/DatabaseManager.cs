@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Reflection;
 
 namespace Desert.Combat.Infrastructure;
 
+/// <summary>
+/// Менеджер БД
+/// </summary>
 public class DatabaseManager
 {
     private static DatabaseManager _instance;
@@ -16,6 +18,10 @@ public class DatabaseManager
         }
     }
 
+    /// <summary>
+    /// Получить экземпляр объекта без конструктора
+    /// </summary>
+    /// <returns>Экземпляр объекта</returns>
     public static DatabaseManager GetInstance()
     {
         if (_instance == null)
@@ -26,6 +32,10 @@ public class DatabaseManager
         return _instance;
     }
 
+    /// <summary>
+    /// Получает утановленный контекст БД, с чего начинается вся работа Entity Framework
+    /// </summary>
+    /// <returns>Установленный контекст БД</returns>
     public GameContext GetContext()
     {
         Console.WriteLine("Getting context...");

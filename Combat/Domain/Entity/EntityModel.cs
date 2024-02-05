@@ -35,5 +35,6 @@ public class EntityModel : IEntity
     /// <inheritdoc/>
     public SkillSet SkillSet { get; set; }
     
+    /// <inheritdoc/>
     public int SkillSetId { get; set; }
 }

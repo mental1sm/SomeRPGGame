@@ -1,10 +1,11 @@
 using Godot;
 using System;
+using Desert.Combat.Godot.Util;
 
 public partial class CharacterController : CharacterBody3D
 {
-	public const float Speed = 1.8f;
-	public const float JumpVelocity = 3.5f;
+	private const float Speed = 1.8f;
+	private const float JumpVelocity = 3.5f;
 
 	public Vector3 CurrentPlayerPosition
 	{

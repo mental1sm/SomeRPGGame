@@ -5,7 +5,7 @@ using Desert.Combat.Domain.Util;
 namespace Desert.Combat.Domain.Entity;
 
 /// <inheritdoc cref="IEntity"/>
-public class Entity : EntityModel, IEntityActions
+public class Entity : EntityModel, IEntityActions, IEntityUtil
 {
     public Entity()
     {
@@ -55,14 +55,17 @@ public class Entity : EntityModel, IEntityActions
     }
 
     /// <inheritdoc/>
-    public void Attack(Entity target, Skill.Skill skill)
+    public bool Attack(Entity target, Skill.Skill skill)
     {
         if (SkillSet.UseSkill(skill.Id))
         {
             target.TakeDamage(source: this, skill: skill);
             this.CurrentEnergy -= skill.EnergyCost;
             EmitSignal(CombatSignal.DrainedEnergy);
+            return true;
         }
+
+        return false;
     }
     
     /// <inheritdoc/>
@@ -80,6 +83,11 @@ public class Entity : EntityModel, IEntityActions
 
     private EmitSignalStrategyDefinitionProvider.EmitSignalStrategy _emitStrategy;
 
+    public EmitSignalStrategyDefinitionProvider.EmitSignalStrategy EmitSignalStrategy
+    {
+        set => _emitStrategy = value;
+    }
+
     /// <summary>
     /// Излучает сигнал, используя стратегию излучения.
     /// </summary>
@@ -89,5 +97,11 @@ public class Entity : EntityModel, IEntityActions
         Console.WriteLine($"Entity with id:{Id} and name:{Name} is emitting signal {signalType}.");
         _emitStrategy?.Invoke(signalType: signalType, this.GameId);
     }
-    
+
+    /// <inheritdoc/>
+    public void ResetHpAndEnergy()
+    {
+        this.CurrentEnergy = MaxEnergy;
+        this.CurrentHealth = MaxHealth;
+    }
 }

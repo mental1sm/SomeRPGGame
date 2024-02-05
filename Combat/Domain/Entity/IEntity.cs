@@ -56,5 +56,9 @@ public interface IEntity
     [NotMapped]
     SkillSet SkillSet { get; set; }
     
+    /// <summary>
+    /// ID скиллсета (для FK)
+    /// </summary>
     int SkillSetId { get; set; }
+    
 }

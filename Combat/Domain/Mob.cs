@@ -4,7 +4,7 @@ using Desert.Combat.Domain.Util;
 
 namespace Desert.Combat.Domain;
 
-public class Mob : Entity.Entity
+public sealed class Mob : Entity.Entity
 {
     public Mob(
         int gameId,

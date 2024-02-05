@@ -16,5 +16,9 @@ public enum CombatSignal
     /// <summary>
     /// Сигнал о потраченной энергии от определенной сущности
     /// </summary>
-    DrainedEnergy
+    DrainedEnergy,
+    /// <summary>
+    /// Сигнал о начале нового хода (излучает в качестве аргумента id сущности, которая ходет следующей)
+    /// </summary>
+    NewTurn
 }

@@ -23,7 +23,6 @@ public partial class HealthBarController : ColorRect
 
 	private void OnDamageTaken(int emitterId)
 	{
-		Console.WriteLine($"Received signal from entity with id {emitterId}");
 		_hpLabel.Text = $"{_playerBattleController.PlayerEntity.CurrentHealth} / {_playerBattleController.PlayerEntity.MaxHealth}";
 	}
 }

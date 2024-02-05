@@ -2,8 +2,8 @@
 using System.Linq;
 using Desert.Combat.Domain.Skill;
 using Desert.Combat.Domain.Skillset;
+using Desert.Combat.Domain.Util.MiddleTables;
 using Desert.Combat.Infrastructure;
-using Desert.Domain.Util.MiddleTables;
 using Microsoft.EntityFrameworkCore;
 
 namespace Desert.Combat.Repository;

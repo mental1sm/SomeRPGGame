@@ -15,7 +15,7 @@ public interface IEntityActions
     /// </summary>
     /// <param name="target">Цель атаки</param>
     /// <param name="skill">Скилл</param>
-    void Attack(Entity target, Skill.Skill skill);
+    bool Attack(Entity target, Skill.Skill skill);
     
     /// <summary>
     /// Метод, испускающий сигнал, сообщающий менеджеру сражения о готовности окончить свой ход
