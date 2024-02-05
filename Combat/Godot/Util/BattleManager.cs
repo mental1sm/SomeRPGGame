@@ -157,6 +157,7 @@ public partial class BattleManager : Node
 	{
 		Console.WriteLine($"Сущность {_currentTurnEntity.Name} уведомлен о его ходе!");
 		_sharedBattleSignal.EmitBattleSignal(CombatSignal.NewTurn, _currentTurnEntity.GameId);
+		_currentTurnEntity.OnNewTurn();
 	}
 
 	/// <summary>

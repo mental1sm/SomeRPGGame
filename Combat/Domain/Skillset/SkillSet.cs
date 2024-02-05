@@ -148,6 +148,7 @@ public class SkillSet : ISkillSet
 			{
 				SkillsOnCooldown[pair.Key] = pair.Value - Constants.CooldownOnTurn;
 				// emitting signal "cooldown_progress"
+				Console.WriteLine(SkillsOnCooldown[pair.Key]);
 			}
 		}
 	}

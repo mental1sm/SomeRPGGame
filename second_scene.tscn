@@ -251,8 +251,8 @@ text = "Текущий ход: "
 
 [node name="CurrentTurn" type="Label" parent="Control/TurnPanel"]
 layout_mode = 0
-offset_left = 153.0
-offset_top = 19.0
-offset_right = 322.0
-offset_bottom = 42.0
-text = "some"
+offset_left = 138.0
+offset_top = 20.0
+offset_right = 308.0
+offset_bottom = 43.0
+text = "Ожидание игроков..."

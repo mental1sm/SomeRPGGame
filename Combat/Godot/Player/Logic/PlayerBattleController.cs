@@ -52,4 +52,5 @@ public partial class PlayerBattleController : CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+	
 }

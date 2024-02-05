@@ -18,9 +18,10 @@ public partial class SkillButton : Button
 	public SkillButton(Skill skill)
 	{
 		_containedSkill = skill;
-		Text = skill.Name;
+		Text = skill.Name.ToCharArray()[0].ToString();
 		Size = new Vector2(56, 56);
-		AddThemeFontSizeOverride("font_size", 10);
+		AddThemeFontSizeOverride("font_size", 20);
+		TooltipText = skill.Name;
 	}
 
 	public override void _Ready()
